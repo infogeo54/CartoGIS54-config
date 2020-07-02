@@ -24,12 +24,16 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsProject
 
 # Initialize Qt resources from file resources.py
 from .resources import *
 # Import the code for the dialog
 from .carto54_dialog import Carto54Dialog
 import os.path
+import re
+
+from .utils.output import Output
 
 
 class Carto54:
@@ -177,6 +181,20 @@ class Carto54:
                 action)
             self.iface.removeToolBarIcon(action)
 
+    def get_destination_directory(self):
+        directory = self.dlg.ipt_dest.text()
+        if not os.path.isdir(directory):
+            raise Exception("Destination must be an existing folder")
+        return directory
+
+    def generate_output(self):
+        layers = QgsProject.instance().mapLayers().values()
+        directory = self.get_destination_directory()
+        output = Output(directory)
+        output.generate_structure(layers)
+        output.save()
+        self.dlg.close()
+
     def run(self):
         """Run method that performs all the real work"""
 
@@ -188,11 +206,15 @@ class Carto54:
 
         # show the dialog
         self.dlg.show()
-        # Run the dialog event loop
-        result = self.dlg.exec_()
 
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
+        # Default values
+        default_directory = QgsProject.instance().absolutePath()
+
+        # Setting default values
+        self.dlg.ipt_dest.setText(default_directory)
+
+        # Listening clicks on buttons
+        self.dlg.btn_cancel.clicked.connect(self.dlg.close)
+        self.dlg.btn_generate.clicked.connect(self.generate_output)
+
+
