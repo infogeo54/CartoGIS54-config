@@ -1,4 +1,3 @@
-import os
 import json
 from .form import layers_configs
 
@@ -46,11 +45,13 @@ class Output:
     def add_selectBox(self, config):
         selectBox_list = self.structure["form"]["selectBox"]
         selectBox_list.append(config)
-
-    def parse(self):
-        return json.dumps(self.structure)
     
     def add_config(self, config):
+        """
+        Add a field's config to the appropriate section, depending on it's type
+        :param config: Dict - A field's config
+        :return Void
+        """
         f, t, o = config["field"], config["type"], config["options"]
         if t == "TextEdit":
             if "IsMultiline" in o:
@@ -66,12 +67,19 @@ class Output:
             return self.add_inputDate(config)
 
     def generate_structure(self, layers):
+        """
+        Extract layers' configs then add each one of them on the the appropriate section
+        :param layers: List - Current projects' layers
+        """
         configs = layers_configs(layers)
         for c in configs:
             self.add_config(c)
 
     def save(self):
-        parsed_structure = self.parse()
+        """
+        Parse structure into json then create the output file and write inside
+        """
+        parsed_structure = json.dumps(self.structure)
         f = open(self.path, "w+")
         f.write(parsed_structure)
         f.close()

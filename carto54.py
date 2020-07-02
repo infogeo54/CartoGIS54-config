@@ -31,7 +31,6 @@ from .resources import *
 # Import the code for the dialog
 from .carto54_dialog import Carto54Dialog
 import os.path
-import re
 
 from .utils.output import Output
 
@@ -182,12 +181,19 @@ class Carto54:
             self.iface.removeToolBarIcon(action)
 
     def get_destination_directory(self):
+        """
+        Get the destination input value and returns it if it's a valid directory
+        :return: String
+        """
         directory = self.dlg.ipt_dest.text()
         if not os.path.isdir(directory):
             raise Exception("Destination must be an existing folder")
         return directory
 
     def generate_output(self):
+        """
+        Create and fill the output file
+        """
         layers = QgsProject.instance().mapLayers().values()
         directory = self.get_destination_directory()
         output = Output(directory)
