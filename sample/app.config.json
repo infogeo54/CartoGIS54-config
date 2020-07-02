@@ -1,0 +1,139 @@
+{
+  "form": {
+    "inputText": [
+      {
+        "field": "id",
+        "type": "TextEdit",
+        "options": {}
+      }
+    ],
+    "inputNumber": [
+      {
+        "field": "int",
+        "type": "Range",
+        "options": {
+          "AllowNull": false,
+          "Max": 10,
+          "Min": 0,
+          "Precision": 0,
+          "Step": 1,
+          "Style": "SpinBox"
+        }
+      }
+    ],
+    "inputDate": [
+      {
+        "field": "build",
+        "type": "DateTime",
+        "options": {
+          "allow_null": true,
+          "calendar_popup": true,
+          "display_format": "yyyy-MM-dd",
+          "field_format": "yyyy-MM-dd",
+          "field_iso_format": false
+        }
+      },
+      {
+        "field": "date",
+        "type": "DateTime",
+        "options": {
+          "allow_null": true,
+          "calendar_popup": true,
+          "display_format": "yyyy-MM-dd",
+          "field_format": "yyyy-MM-dd",
+          "field_iso_format": false
+        }
+      }
+    ],
+    "inputRange": [
+      {
+        "field": "float",
+        "type": "Range",
+        "options": {
+          "AllowNull": true,
+          "Max": 100,
+          "Min": 0,
+          "Precision": 0,
+          "Step": 1,
+          "Style": "Slider"
+        }
+      }
+    ],
+    "textArea": [
+      {
+        "field": "name",
+        "type": "TextEdit",
+        "options": {
+          "IsMultiline": false,
+          "UseHtml": false
+        }
+      },
+      {
+        "field": "about",
+        "type": "TextEdit",
+        "options": {
+          "IsMultiline": true,
+          "UseHtml": false
+        }
+      },
+      {
+        "field": "text",
+        "type": "TextEdit",
+        "options": {
+          "IsMultiline": false,
+          "UseHtml": false
+        }
+      },
+      {
+        "field": "text-multi",
+        "type": "TextEdit",
+        "options": {
+          "IsMultiline": true,
+          "UseHtml": false
+        }
+      }
+    ],
+    "selectBox": [
+      {
+        "field": "available",
+        "type": "ValueMap",
+        "options": {
+          "map": [
+            {
+              "No": "false"
+            },
+            {
+              "Yes": "true"
+            }
+          ]
+        }
+      },
+      {
+        "field": "text-selec",
+        "type": "ValueMap",
+        "options": {
+          "map": [
+            {
+              "Un": "1"
+            },
+            {
+              "Deux": "2"
+            },
+            {
+              "Trois": "3"
+            },
+            {
+              "Quatre": "4"
+            },
+            {
+              "Cinq": "5"
+            },
+            {
+              "Six": "6"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
