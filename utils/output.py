@@ -4,15 +4,14 @@ from .form import layers_configs
 
 
 class Output:
-    def __init__(self, directory, entrypoint="app.config.json"):
+    def __init__(self, directory):
         """
         Create an Output instance by specifying the target
-        :param path: String - The output file path
-        :param entrypoint: String - The output file name (with extension)
+        :param directory: String - The output file destination
         """
         self.directory = directory
-        self.entrypoint = entrypoint
-        self.path = "{}/{}".format(directory, entrypoint)
+        self.entrypoint = "app.config.json"
+        self.path = "{}/{}".format(directory, self.entrypoint)
         self.structure = {
             "form": {
                 "inputText": [],
