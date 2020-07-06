@@ -55,7 +55,8 @@ class Output:
         t, o = config["type"], config["options"]
         if t == "TextEdit":
             if "IsMultiline" in o:
-                return self.add_textArea(config)
+                if o["IsMultiline"]:
+                    return self.add_textArea(config)
             return self.add_inputText(config)
         if t == "ValueMap":
             return self.add_selectBox(config)

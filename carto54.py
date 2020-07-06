@@ -198,6 +198,7 @@ class Carto54:
         directory = self.get_destination_directory()
         output = Output(directory)
         output.generate_structure(layers)
+        print(output.__dict__)
         output.save()
         self.dlg.close()
 
