@@ -37,6 +37,6 @@ def layers_configs(layers):
     configs = list(map(layer_fields, layers))
     flat_configs = [field for config in configs for field in config]
     return list(
-        {config["field"]: config for config in flat_configs}.values()
+        {config["name"]: config for config in flat_configs}.values()
     )
 
