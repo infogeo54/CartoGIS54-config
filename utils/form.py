@@ -3,6 +3,7 @@ Utils functions to retrieve data from QGIS attributes from
 """
 
 
+
 def field_config(field):
     """
     Returns a layer's field configuration
@@ -14,7 +15,8 @@ def field_config(field):
         name=field.name(),
         alias=field.alias(),
         type=widget.type(),
-        options=widget.config()
+        options=widget.config(),
+        default=field.defaultValueDefinition().expression()
     )
 
 
