@@ -12,6 +12,7 @@ def field_config(field):
     widget = field.editorWidgetSetup()
     return dict(
         field=field.name(),
+        alias=field.alias(),
         type=widget.type(),
         options=widget.config()
     )
