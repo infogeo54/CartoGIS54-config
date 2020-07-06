@@ -52,7 +52,7 @@ class Output:
         :param config: Dict - A field's config
         :return Void
         """
-        f, t, o = config["field"], config["type"], config["options"]
+        t, o = config["type"], config["options"]
         if t == "TextEdit":
             if "IsMultiline" in o:
                 return self.add_textArea(config)
