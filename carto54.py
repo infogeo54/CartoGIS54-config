@@ -190,16 +190,15 @@ class Carto54:
             raise Exception("Destination must be an existing folder")
         return directory
 
-    def generate_output(self):
+    def update_destination(self, output):
+        output.directory = self.get_destination_directory()
+
+    def generate_output(self, output):
         """
-        Create and fill the output file
+        Save the output
         """
-        layers = QgsProject.instance().mapLayers().values()
-        directory = self.get_destination_directory()
-        output = Output(directory)
-        output.generate_structure(layers)
         print(output.__dict__)
-        output.save()
+        # output.save()
         self.dlg.close()
 
     def run(self):
@@ -217,11 +216,21 @@ class Carto54:
         # Default values
         default_directory = QgsProject.instance().absolutePath()
 
+        # Getting layers
+        layers = QgsProject.instance().mapLayers().values()
+
+        # Creating Output instance
+        output = Output(default_directory)
+        output.generate_structure(layers)
+
         # Setting default values
         self.dlg.ipt_dest.setText(default_directory)
 
+        # Listening destination input changes
+        self.dlg.ipt_dest.editingFinished.connect(lambda: self.update_destination(output))
+
         # Listening clicks on buttons
         self.dlg.btn_cancel.clicked.connect(self.dlg.close)
-        self.dlg.btn_generate.clicked.connect(self.generate_output)
+        self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
 
 
