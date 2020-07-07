@@ -33,6 +33,7 @@ from .carto54_dialog import Carto54Dialog
 import os.path
 
 from .utils.output import Output
+from .utils.table import fill_table
 
 
 class Carto54:
@@ -193,6 +194,14 @@ class Carto54:
     def update_destination(self, output):
         output.directory = self.get_destination_directory()
 
+    def fill_display_table(self, output):
+        fields = []
+        categories = output.structure["form"]
+        for category in categories:
+            fields.extend(categories[category])
+        fill_table(self.dlg.tw_display, fields)
+
+
     def generate_output(self, output):
         """
         Save the output
@@ -225,6 +234,10 @@ class Carto54:
 
         # Setting default values
         self.dlg.ipt_dest.setText(default_directory)
+
+        # Config display table
+        self.dlg.tw_display.setRowCount(output.get_fields_count())
+        self.fill_display_table(output)
 
         # Listening destination input changes
         self.dlg.ipt_dest.editingFinished.connect(lambda: self.update_destination(output))
