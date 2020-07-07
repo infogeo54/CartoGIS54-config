@@ -11,11 +11,13 @@ def field_config(field):
     :return: Dict
     """
     widget = field.editorWidgetSetup()
+    options = widget.config()
+    options.update({"disabled": False, "hidden": False})
     return dict(
         name=field.name(),
         alias=field.alias(),
         type=widget.type(),
-        options=widget.config(),
+        options=options,
         default=field.defaultValueDefinition().expression()
     )
 
