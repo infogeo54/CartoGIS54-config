@@ -10,7 +10,6 @@ class Output:
         """
         self.directory = directory
         self.entrypoint = "app.config.json"
-        self.path = "{}/{}".format(directory, self.entrypoint)
         self.structure = {
             "form": {
                 "inputText": [],
@@ -18,9 +17,14 @@ class Output:
                 "inputDate": [],
                 "inputRange": [],
                 "textArea": [],
-                "selectBox": []
+                "selectBox": [],
+                "disabled": [],
+                "hidden": []
             }
         }
+
+    def get_path(self):
+        return "{}/{}".format(self.directory, self.entrypoint)
 
     def add_inputText(self, config):
         inputText_list = self.structure["form"]["inputText"]
@@ -76,12 +80,13 @@ class Output:
         for c in configs:
             self.add_config(c)
 
+
     def save(self):
         """
         Parse structure into json then create the output file and write inside
         """
         parsed_structure = json.dumps(self.structure)
-        f = open(self.path, "w+")
+        f = open(self.get_path(), "w+")
         f.write(parsed_structure)
         f.close()
 
