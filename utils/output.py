@@ -17,14 +17,19 @@ class Output:
                 "inputDate": [],
                 "inputRange": [],
                 "textArea": [],
-                "selectBox": [],
-                "disabled": [],
-                "hidden": []
+                "selectBox": []
             }
         }
 
     def get_path(self):
         return "{}/{}".format(self.directory, self.entrypoint)
+
+    def get_fields_count(self):
+        res = 0
+        categories = self.structure["form"]
+        for c in categories:
+            res += len(categories[c])
+        return res
 
     def add_inputText(self, config):
         inputText_list = self.structure["form"]["inputText"]
