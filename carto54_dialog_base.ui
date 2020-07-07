@@ -88,7 +88,7 @@
       <widget class="QTableWidget" name="tw_display">
        <column>
         <property name="text">
-         <string>Layer</string>
+         <string>Field</string>
         </property>
        </column>
        <column>
