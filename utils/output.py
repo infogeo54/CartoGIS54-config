@@ -24,35 +24,52 @@ class Output:
     def get_path(self):
         return "{}/{}".format(self.directory, self.entrypoint)
 
+    def get_categories(self):
+        return self.structure["form"]
+    
     def get_fields_count(self):
-        res = 0
-        categories = self.structure["form"]
+        count = 0
+        categories = self.get_categories()
         for c in categories:
-            res += len(categories[c])
-        return res
+            count += len(categories[c])
+        return count
+    
+    def get_fields(self):
+        fields = []
+        categories = self.get_categories()
+        for c in categories:
+            fields.extend(categories[c])
+        return fields
+
+    def find_field_by_name(self, name):
+        fields = self.get_fields()
+        for f in fields:
+            if f["name"] == name:
+                return f
+        return
 
     def add_inputText(self, config):
-        inputText_list = self.structure["form"]["inputText"]
+        inputText_list = self.get_categories()["inputText"]
         inputText_list.append(config)
 
     def add_inputNumber(self, config):
-        inputNumber_list = self.structure["form"]["inputNumber"]
+        inputNumber_list = self.get_categories()["inputNumber"]
         inputNumber_list.append(config)
 
     def add_inputDate(self, config):
-        inputDate_list = self.structure["form"]["inputDate"]
+        inputDate_list = self.get_categories()["inputDate"]
         inputDate_list.append(config)
 
     def add_inputRange(self, config):
-        inputRange_list = self.structure["form"]["inputRange"]
+        inputRange_list = self.get_categories()["inputRange"]
         inputRange_list.append(config)
 
     def add_textArea(self, config):
-        textArea_list = self.structure["form"]["textArea"]
+        textArea_list = self.get_categories()["textArea"]
         textArea_list.append(config)
 
     def add_selectBox(self, config):
-        selectBox_list = self.structure["form"]["selectBox"]
+        selectBox_list = self.get_categories()["selectBox"]
         selectBox_list.append(config)
     
     def add_config(self, config):
