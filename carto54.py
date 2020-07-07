@@ -21,7 +21,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import QgsProject
@@ -201,13 +201,22 @@ class Carto54:
             fields.extend(categories[category])
         fill_table(self.dlg.tw_display, fields)
 
+    def handle_check(self, item, output):
+        isChecked, attribute = item.checkState() == Qt.Checked, item.data(1)
+        row = self.dlg.tw_display.row(item)
+        field_name = self.dlg.tw_display.itemAt(row, 0).text()
+        matching_field = output.find_field_by_name(field_name)
+        if isChecked:
+            matching_field["options"][attribute] = True
+        else:
+            matching_field["options"][attribute] = False
 
     def generate_output(self, output):
         """
         Save the output
         """
         print(output.__dict__)
-        # output.save()
+        output.save()
         self.dlg.close()
 
     def run(self):
@@ -215,22 +224,19 @@ class Carto54:
 
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start:
-            self.first_start = False
-            self.dlg = Carto54Dialog()
 
-        # show the dialog
-        self.dlg.show()
 
         # Default values
         default_directory = QgsProject.instance().absolutePath()
-
-        # Getting layers
         layers = QgsProject.instance().mapLayers().values()
 
         # Creating Output instance
         output = Output(default_directory)
         output.generate_structure(layers)
+
+        if self.first_start:
+            self.first_start = False
+            self.dlg = Carto54Dialog()
 
         # Setting default values
         self.dlg.ipt_dest.setText(default_directory)
@@ -238,12 +244,15 @@ class Carto54:
         # Config display table
         self.dlg.tw_display.setRowCount(output.get_fields_count())
         self.fill_display_table(output)
+        self.dlg.tw_display.itemChanged.connect(lambda item: self.handle_check(item, output))
 
         # Listening destination input changes
         self.dlg.ipt_dest.editingFinished.connect(lambda: self.update_destination(output))
-
         # Listening clicks on buttons
         self.dlg.btn_cancel.clicked.connect(self.dlg.close)
         self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
+
+        # show the dialog
+        self.dlg.show()
 
 
