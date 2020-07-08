@@ -204,7 +204,7 @@ class Carto54:
     def handle_check(self, item, output):
         isChecked, attribute = item.checkState() == Qt.Checked, item.data(1)
         row = self.dlg.tw_display.row(item)
-        field_name = self.dlg.tw_display.itemAt(row, 0).text()
+        field_name = self.dlg.tw_display.item(row, 0).text()
         matching_field = output.find_field_by_name(field_name)
         if isChecked:
             matching_field["options"][attribute] = True
