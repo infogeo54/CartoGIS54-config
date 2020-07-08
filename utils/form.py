@@ -15,15 +15,16 @@ def format_map(widget_map):
         res.append({"text": key, "value": val})
     return res
 
-def field_options(widget):
+def field_options(widget, required=False):
     """
     Returns a formatted options attribute from a widget
     :param widget: QgsEditorWidgetSetup - A field's widget
+    :param required: Bool - Indicates if this field is required
     :return: Dict
     """
     options, widget_type, widget_config = dict(), widget.type(), widget.config()
     options.update(widget_config)
-    options.update({"disabled": False, "hidden": False})
+    options.update({"disabled": False, "hidden": False, "required": required})
     if widget_type == "ValueMap":
         formatted_map = format_map(widget_config["map"])
         options.update({"map": formatted_map})
@@ -36,8 +37,9 @@ def field_config(field):
     :param field: QgsField - The concerned field
     :return: Dict
     """
-    widget = field.editorWidgetSetup()
-    options = field_options(widget)
+    widget, constraints = field.editorWidgetSetup(), field.constraints()
+    required = constraints.constraintOrigin(constraints.ConstraintNotNull) != 0
+    options = field_options(widget, required)
     return dict(
         name=field.name(),
         alias=field.alias(),
