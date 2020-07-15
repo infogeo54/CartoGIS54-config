@@ -11,6 +11,10 @@ class Output:
         self.directory = directory
         self.entrypoint = "app.config.json"
         self.structure = {
+            "server": {
+                "host": "",
+                "queryParams": []
+            },
             "form": {
                 "inputText": [],
                 "inputNumber": [],
@@ -18,7 +22,8 @@ class Output:
                 "inputRange": [],
                 "textArea": [],
                 "selectBox": []
-            }
+            },
+            "modals": []
         }
 
     def path(self):
