@@ -21,56 +21,41 @@ class Output:
             }
         }
 
-    def get_path(self):
+    def path(self):
         return "{}/{}".format(self.directory, self.entrypoint)
 
-    def get_categories(self):
+    def categories(self):
         return self.structure["form"]
     
-    def get_fields_count(self):
-        count = 0
-        categories = self.get_categories()
+    def fields(self):
+        res, categories = [], self.categories()
         for c in categories:
-            count += len(categories[c])
-        return count
-    
-    def get_fields(self):
-        fields = []
-        categories = self.get_categories()
-        for c in categories:
-            fields.extend(categories[c])
-        return fields
+            res.extend(categories[c])
+        return res
 
-    def find_field_by_name(self, name):
-        fields = self.get_fields()
-        for f in fields:
+    def field(self, name):
+        for f in self.fields():
             if f["name"] == name:
                 return f
         return
 
     def add_inputText(self, config):
-        inputText_list = self.get_categories()["inputText"]
-        inputText_list.append(config)
+        self.categories()["inputText"].append(config)
 
     def add_inputNumber(self, config):
-        inputNumber_list = self.get_categories()["inputNumber"]
-        inputNumber_list.append(config)
+        self.categories()["inputNumber"].append(config)
 
     def add_inputDate(self, config):
-        inputDate_list = self.get_categories()["inputDate"]
-        inputDate_list.append(config)
+        self.categories()["inputDate"].append(config)
 
     def add_inputRange(self, config):
-        inputRange_list = self.get_categories()["inputRange"]
-        inputRange_list.append(config)
+        self.categories()["inputRange"].append(config)
 
     def add_textArea(self, config):
-        textArea_list = self.get_categories()["textArea"]
-        textArea_list.append(config)
+        self.categories()["textArea"].append(config)
 
     def add_selectBox(self, config):
-        selectBox_list = self.get_categories()["selectBox"]
-        selectBox_list.append(config)
+        self.categories()["selectBox"].append(config)
     
     def add_config(self, config):
         """
@@ -98,17 +83,15 @@ class Output:
         Extract layers' configs then add each one of them on the the appropriate section
         :param layers: List - Current projects' layers
         """
-        configs = layers_configs(layers)
-        for c in configs:
+        for c in layers_configs(layers):
             self.add_config(c)
-
 
     def save(self):
         """
         Parse structure into json then create the output file and write inside
         """
         parsed_structure = json.dumps(self.structure)
-        f = open(self.get_path(), "w+")
+        f = open(self.path(), "w+")
         f.write(parsed_structure)
         f.close()
 
