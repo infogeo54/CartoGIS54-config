@@ -199,8 +199,8 @@ class Carto54:
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
         output.set_modals(modals.get_all(self.dlg.tw_modals))
         print(output.__dict__)
-        #output.save()
-        #self.dlg.close()
+        output.save()
+        self.dlg.close()
 
     def run(self):
         """Run method that performs all the real work"""
