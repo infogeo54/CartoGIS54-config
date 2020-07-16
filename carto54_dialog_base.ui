@@ -78,7 +78,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab_server">
       <attribute name="title">
@@ -200,6 +200,11 @@
            <column>
             <property name="text">
              <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Title</string>
             </property>
            </column>
            <column>
