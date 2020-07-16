@@ -194,7 +194,7 @@ class Carto54:
         """
         Save the output
         """
-        output.set_host(self.dlg.ipt_host)
+        output.set_host(self.dlg.ipt_host.text())
         output.set_query_params(server.query_params(self.dlg.tw_qp))
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
         print(output.__dict__)
