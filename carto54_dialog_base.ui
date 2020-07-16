@@ -106,7 +106,7 @@
        <item>
         <layout class="QHBoxLayout" name="lyt_params">
          <item>
-          <widget class="QTableWidget" name="tw_params">
+          <widget class="QTableWidget" name="tw_qp">
            <column>
             <property name="text">
              <string>Key</string>
@@ -123,7 +123,7 @@
           <widget class="QFrame" name="frm_buttons">
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <item>
-             <widget class="QPushButton" name="bnt_add_qp">
+             <widget class="QPushButton" name="btn_add_qp">
               <property name="text">
                <string>Add row</string>
               </property>
