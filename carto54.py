@@ -33,7 +33,7 @@ from .carto54_dialog import Carto54Dialog
 import os.path
 
 from .utils.output import Output
-from .utils.table import fill_table
+from .utils import server, form, modals
 
 
 class Carto54:
@@ -181,40 +181,23 @@ class Carto54:
                 action)
             self.iface.removeToolBarIcon(action)
 
-    def get_destination_directory(self):
-        """
-        Get the destination input value and returns it if it's a valid directory
-        :return: String
-        """
-        directory = self.dlg.ipt_dest.text()
-        if not os.path.isdir(directory):
-            raise Exception("Destination must be an existing folder")
-        return directory
+    def destination(self):
+        return self.dlg.ipt_dest.text()
 
-    def update_destination(self, output):
-        output.directory = self.get_destination_directory()
+    def host(self):
+        return self.dlg.ipt_host.text()
 
     def fill_display_table(self, output):
-        fields = []
-        categories = output.structure["form"]
-        for category in categories:
-            fields.extend(categories[category])
-        fill_table(self.dlg.tw_display, fields)
-
-    def handle_check(self, item, output):
-        isChecked, attribute = item.checkState() == Qt.Checked, item.data(1)
-        row = self.dlg.tw_display.row(item)
-        field_name = self.dlg.tw_display.item(row, 0).text()
-        matching_field = output.find_field_by_name(field_name)
-        if isChecked:
-            matching_field["options"][attribute] = True
-        else:
-            matching_field["options"][attribute] = False
+        form.fill_table(self.dlg.tw_display, output.fields())
 
     def generate_output(self, output):
         """
         Save the output
         """
+        output.set_host(self.dlg.ipt_host.text())
+        output.set_query_params(server.query_params(self.dlg.tw_qp))
+        output.set_fields_display(form.fields_display(self.dlg.tw_display))
+        output.set_modals(modals.get_all(self.dlg.tw_modals))
         print(output.__dict__)
         output.save()
         self.dlg.close()
@@ -225,32 +208,35 @@ class Carto54:
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
 
-
         # Default values
         default_directory = QgsProject.instance().absolutePath()
         layers = QgsProject.instance().mapLayers().values()
 
         # Creating Output instance
         output = Output(default_directory)
-        output.generate_structure(layers)
+        output.set_form(layers)
 
         if self.first_start:
             self.first_start = False
             self.dlg = Carto54Dialog()
 
-        # Setting default values
-        self.dlg.ipt_dest.setText(default_directory)
+            # Setting default values
+            self.dlg.ipt_dest.setText(default_directory)
 
-        # Config display table
-        self.dlg.tw_display.setRowCount(output.get_fields_count())
-        self.fill_display_table(output)
-        self.dlg.tw_display.itemChanged.connect(lambda item: self.handle_check(item, output))
+            # Config display table
+            self.dlg.tw_display.setRowCount(len(output.fields()))
+            self.fill_display_table(output)
 
-        # Listening destination input changes
-        self.dlg.ipt_dest.editingFinished.connect(lambda: self.update_destination(output))
-        # Listening clicks on buttons
-        self.dlg.btn_cancel.clicked.connect(self.dlg.close)
-        self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
+            # Listening input changes
+            self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
+
+            # Listening clicks on buttons
+            self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
+            self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
+            self.dlg.btn_add_modal.clicked.connect(lambda: modals.add_row(self.dlg.tw_modals))
+            self.dlg.btn_delete_modal.clicked.connect(lambda: modals.remove_rows(self.dlg.tw_modals))
+            self.dlg.btn_cancel.clicked.connect(self.dlg.close)
+            self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
 
         # show the dialog
         self.dlg.show()

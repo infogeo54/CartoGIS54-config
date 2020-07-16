@@ -1,4 +1,4 @@
-import json
+import os, json
 from .form import layers_configs
 
 
@@ -10,67 +10,50 @@ class Output:
         """
         self.directory = directory
         self.entrypoint = "app.config.json"
-        self.structure = {
-            "form": {
-                "inputText": [],
-                "inputNumber": [],
-                "inputDate": [],
-                "inputRange": [],
-                "textArea": [],
-                "selectBox": []
-            }
-        }
+        self.server = dict(
+            host="", 
+            queryParams=[]
+        )
+        self.form = dict(
+            inputText=[],
+            inputNumber=[],
+            inputDate=[],
+            inputRange=[],
+            textArea=[],
+            selectBox=[]
+        )
+        self.modals = []
+        
 
-    def get_path(self):
-        return "{}/{}".format(self.directory, self.entrypoint)
+    def set_directory(self, directory):
+        if not os.path.isdir(directory):
+            raise Exception("Cannot resolve \"{dir}\"".format(dir=directory))
+        else:
+            self.directory = directory
 
-    def get_categories(self):
-        return self.structure["form"]
-    
-    def get_fields_count(self):
-        count = 0
-        categories = self.get_categories()
-        for c in categories:
-            count += len(categories[c])
-        return count
-    
-    def get_fields(self):
-        fields = []
-        categories = self.get_categories()
-        for c in categories:
-            fields.extend(categories[c])
-        return fields
+    def set_host(self, host):
+        self.server["host"] = host
 
-    def find_field_by_name(self, name):
-        fields = self.get_fields()
-        for f in fields:
-            if f["name"] == name:
-                return f
-        return
+    def set_query_params(self, query_params):
+        self.server["queryParams"] = query_params
 
     def add_inputText(self, config):
-        inputText_list = self.get_categories()["inputText"]
-        inputText_list.append(config)
+        self.form["inputText"].append(config)
 
     def add_inputNumber(self, config):
-        inputNumber_list = self.get_categories()["inputNumber"]
-        inputNumber_list.append(config)
+        self.form["inputNumber"].append(config)
 
     def add_inputDate(self, config):
-        inputDate_list = self.get_categories()["inputDate"]
-        inputDate_list.append(config)
+        self.form["inputDate"].append(config)
 
     def add_inputRange(self, config):
-        inputRange_list = self.get_categories()["inputRange"]
-        inputRange_list.append(config)
+        self.form["inputRange"].append(config)
 
     def add_textArea(self, config):
-        textArea_list = self.get_categories()["textArea"]
-        textArea_list.append(config)
+        self.form["textArea"].append(config)
 
     def add_selectBox(self, config):
-        selectBox_list = self.get_categories()["selectBox"]
-        selectBox_list.append(config)
+        self.form["selectBox"].append(config)
     
     def add_config(self, config):
         """
@@ -93,22 +76,50 @@ class Output:
         if t == "DateTime":
             return self.add_inputDate(config)
 
-    def generate_structure(self, layers):
+    def set_form(self, layers):
         """
         Extract layers' configs then add each one of them on the the appropriate section
         :param layers: List - Current projects' layers
         """
-        configs = layers_configs(layers)
-        for c in configs:
+        for c in layers_configs(layers):
             self.add_config(c)
 
+    def set_fields_display(self, fields_display):
+        for field in fields_display:
+            matching_field = self.field(field["field_name"])
+            matching_field["options"].update(dict(disabled=field["disabled"], hidden=field["hidden"]))
+
+    def set_modals(self, modals):
+        self.modals = modals
+
+    def path(self):
+        return "{}/{}".format(self.directory, self.entrypoint)
+
+    def fields(self):
+        res, categories = [], self.form
+        for c in categories:
+            res.extend(categories[c])
+        return res
+
+    def field(self, name):
+        for f in self.fields():
+            if f["name"] == name:
+                return f
+        return
+
+    def structure(self):
+        return dict(
+            server=self.server,
+            form=self.form,
+            modals=self.modals
+        )
 
     def save(self):
         """
         Parse structure into json then create the output file and write inside
         """
-        parsed_structure = json.dumps(self.structure)
-        f = open(self.get_path(), "w+")
+        parsed_structure = json.dumps(self.structure())
+        f = open(self.path(), "w+")
         f.write(parsed_structure)
         f.close()
 
