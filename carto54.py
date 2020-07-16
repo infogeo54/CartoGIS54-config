@@ -187,14 +187,6 @@ class Carto54:
     def host(self):
         return self.dlg.ipt_host.text()
 
-    def add_qp_row(self):
-        server.add_row(self.dlg.tw_qp)
-
-    def delete_qp_row(self):
-        table = self.dlg.tw_qp
-        for item in table.selectedItems():
-            table.removeRow(item.row())
-
     def fill_display_table(self, output):
         form.fill_table(self.dlg.tw_display, output.fields())
 
@@ -238,8 +230,8 @@ class Carto54:
             self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
 
             # Listening clicks on buttons
-            self.dlg.btn_add_qp.clicked.connect(self.add_qp_row)
-            self.dlg.btn_delete_qp.clicked.connect(self.delete_qp_row)
+            self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
+            self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
             self.dlg.btn_cancel.clicked.connect(self.dlg.close)
             self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
 

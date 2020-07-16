@@ -6,6 +6,10 @@ def add_row(table):
     table.setItem(row, 0, QTableWidgetItem())
     table.setItem(row, 1, QTableWidgetItem())
 
+def remove_rows(table):
+    for item in table.selectedItems():
+        table.removeRow(item.row())
+
 def query_params(table):
     res = []
     for row in range(table.rowCount()):
