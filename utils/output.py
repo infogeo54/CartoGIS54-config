@@ -1,4 +1,4 @@
-import json
+import os, json
 from .form import layers_configs
 
 
@@ -25,29 +25,17 @@ class Output:
         self.modals = []
         
 
-    def path(self):
-        return "{}/{}".format(self.directory, self.entrypoint)
+    def set_directory(self, directory):
+        if not os.path.isdir(directory):
+            raise Exception("Cannot resolve \"{dir}\"".format(dir=directory))
+        else:
+            self.directory = directory
 
     def set_host(self, host):
         self.server["host"] = host
 
     def set_query_params(self, query_params):
-        self.server["query_params"] = query_params
-
-    def add_query_param(self, query_param):
-        self.server["queryParams"].append(query_param)
-    
-    def fields(self):
-        res, categories = [], self.form
-        for c in categories:
-            res.extend(categories[c])
-        return res
-
-    def field(self, name):
-        for f in self.fields():
-            if f["name"] == name:
-                return f
-        return
+        self.server["queryParams"] = query_params
 
     def add_inputText(self, config):
         self.form["inputText"].append(config)
@@ -88,13 +76,33 @@ class Output:
         if t == "DateTime":
             return self.add_inputDate(config)
 
-    def generate_form(self, layers):
+    def set_form(self, layers):
         """
         Extract layers' configs then add each one of them on the the appropriate section
         :param layers: List - Current projects' layers
         """
         for c in layers_configs(layers):
             self.add_config(c)
+
+    def set_fields_display(self, fields_display):
+        for field in fields_display:
+            matching_field = self.field(field["field_name"])
+            matching_field["options"].update(dict(disabled=field["disabled"], hidden=field["hidden"]))
+
+    def path(self):
+        return "{}/{}".format(self.directory, self.entrypoint)
+
+    def fields(self):
+        res, categories = [], self.form
+        for c in categories:
+            res.extend(categories[c])
+        return res
+
+    def field(self, name):
+        for f in self.fields():
+            if f["name"] == name:
+                return f
+        return
 
     def structure(self):
         return dict(
