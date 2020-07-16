@@ -33,8 +33,7 @@ from .carto54_dialog import Carto54Dialog
 import os.path
 
 from .utils.output import Output
-from .utils.table import fill_table
-from .utils import server
+from .utils import server, form
 
 
 class Carto54:
@@ -197,23 +196,14 @@ class Carto54:
             table.removeRow(item.row())
 
     def fill_display_table(self, output):
-        fill_table(self.dlg.tw_display, output.fields())
-
-    def handle_check(self, item, output):
-        isChecked, attribute = item.checkState() == Qt.Checked, item.data(1)
-        row = self.dlg.tw_display.row(item)
-        field_name = self.dlg.tw_display.item(row, 0).text()
-        matching_field = output.field(field_name)
-        if isChecked:
-            matching_field["options"][attribute] = True
-        else:
-            matching_field["options"][attribute] = False
+        form.fill_table(self.dlg.tw_display, output.fields())
 
     def generate_output(self, output):
         """
         Save the output
         """
         output.set_query_params(server.query_params(self.dlg.tw_qp))
+        output.set_fields_display(form.fields_display(self.dlg.tw_display))
         print(output.__dict__)
         #output.save()
         #self.dlg.close()
@@ -230,7 +220,7 @@ class Carto54:
 
         # Creating Output instance
         output = Output(default_directory)
-        output.generate_form(layers)
+        output.set_form(layers)
 
         if self.first_start:
             self.first_start = False
@@ -246,9 +236,6 @@ class Carto54:
             # Listening input changes
             self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
             self.dlg.ipt_host.editingFinished.connect(lambda: output.set_host(self.host()))
-
-            # Listening table items changes
-            self.dlg.tw_display.itemChanged.connect(lambda item: self.handle_check(item, output))
 
             # Listening clicks on buttons
             self.dlg.btn_add_qp.clicked.connect(self.add_qp_row)
