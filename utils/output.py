@@ -89,6 +89,9 @@ class Output:
             matching_field = self.field(field["field_name"])
             matching_field["options"].update(dict(disabled=field["disabled"], hidden=field["hidden"]))
 
+    def set_modals(self, modals):
+        self.modals = modals
+
     def path(self):
         return "{}/{}".format(self.directory, self.entrypoint)
 
