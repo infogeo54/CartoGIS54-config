@@ -1,139 +1,142 @@
 {
+  "server": {
+    "host": "127.0.0.1",
+    "queryParams": [
+      {
+        "key": "MAP",
+        "value": "/path/to/my/project.qgs"
+      }
+    ]
+  },
   "form": {
     "inputText": [
       {
-        "field": "id",
+        "name": "id",
+        "alias": "",
         "type": "TextEdit",
-        "options": {}
+        "options": {
+          "IsMultiline": false,
+          "UseHtml": false,
+          "disabled": true,
+          "hidden": true,
+          "required": false
+        },
+        "default": ""
       }
     ],
     "inputNumber": [
       {
-        "field": "int",
+        "name": "test_float",
+        "alias": "Mon d\u00e9cimal",
         "type": "Range",
         "options": {
-          "AllowNull": false,
-          "Max": 10,
-          "Min": 0,
+          "AllowNull": true,
+          "Max": 2147483647,
+          "Min": -2147483648,
           "Precision": 0,
           "Step": 1,
-          "Style": "SpinBox"
-        }
+          "Style": "SpinBox",
+          "disabled": false,
+          "hidden": false,
+          "required": false
+        },
+        "default": ""
       }
     ],
     "inputDate": [
       {
-        "field": "build",
+        "name": "test_date",
+        "alias": "Ma date",
         "type": "DateTime",
         "options": {
           "allow_null": true,
           "calendar_popup": true,
           "display_format": "yyyy-MM-dd",
           "field_format": "yyyy-MM-dd",
-          "field_iso_format": false
-        }
-      },
-      {
-        "field": "date",
-        "type": "DateTime",
-        "options": {
-          "allow_null": true,
-          "calendar_popup": true,
-          "display_format": "yyyy-MM-dd",
-          "field_format": "yyyy-MM-dd",
-          "field_iso_format": false
-        }
+          "field_iso_format": false,
+          "disabled": false,
+          "hidden": false,
+          "required": false
+        },
+        "default": ""
       }
     ],
     "inputRange": [
       {
-        "field": "float",
+        "name": "test_int",
+        "alias": "Mon entier",
         "type": "Range",
         "options": {
           "AllowNull": true,
           "Max": 100,
-          "Min": 0,
+          "Min": -100,
           "Precision": 0,
           "Step": 1,
-          "Style": "Slider"
-        }
+          "Style": "Slider",
+          "disabled": true,
+          "hidden": false,
+          "required": false
+        },
+        "default": "0"
       }
     ],
     "textArea": [
       {
-        "field": "name",
-        "type": "TextEdit",
-        "options": {
-          "IsMultiline": false,
-          "UseHtml": false
-        }
-      },
-      {
-        "field": "about",
+        "name": "test_texte",
+        "alias": "Mon texte",
         "type": "TextEdit",
         "options": {
           "IsMultiline": true,
-          "UseHtml": false
-        }
-      },
-      {
-        "field": "text",
-        "type": "TextEdit",
-        "options": {
-          "IsMultiline": false,
-          "UseHtml": false
-        }
-      },
-      {
-        "field": "text-multi",
-        "type": "TextEdit",
-        "options": {
-          "IsMultiline": true,
-          "UseHtml": false
-        }
+          "UseHtml": false,
+          "disabled": false,
+          "hidden": false,
+          "required": true
+        },
+        "default": ""
       }
     ],
     "selectBox": [
       {
-        "field": "available",
+        "name": "test_list",
+        "alias": "Ma liste",
         "type": "ValueMap",
         "options": {
           "map": [
             {
-              "No": "false"
+              "text": "Un",
+              "value": "1"
             },
             {
-              "Yes": "true"
+              "text": "Deux",
+              "value": "2"
+            },
+            {
+              "text": "Trois",
+              "value": "3"
+            },
+            {
+              "text": "Quatre",
+              "value": "4"
+            },
+            {
+              "text": "Cinq",
+              "value": "5"
             }
-          ]
-        }
-      },
-      {
-        "field": "text-selec",
-        "type": "ValueMap",
-        "options": {
-          "map": [
-            {
-              "Un": "1"
-            },
-            {
-              "Deux": "2"
-            },
-            {
-              "Trois": "3"
-            },
-            {
-              "Quatre": "4"
-            },
-            {
-              "Cinq": "5"
-            },
-            {
-              "Six": "6"
-            }
-          ]
-        }
+          ],
+          "disabled": false,
+          "hidden": false,
+          "required": false
+        },
+        "default": "un"
       }
     ]
-  }
+  },
+  "modals": [
+    {
+      "name": "help",
+      "title": "Help",
+      "icon": "fas fa-question-circle",
+      "visible": false
+    }
+  ]
 }
