@@ -33,7 +33,7 @@ from .carto54_dialog import Carto54Dialog
 import os.path
 
 from .utils.output import Output
-from .utils import server, form
+from .utils import server, form, modals
 
 
 class Carto54:
@@ -197,6 +197,7 @@ class Carto54:
         output.set_host(self.dlg.ipt_host.text())
         output.set_query_params(server.query_params(self.dlg.tw_qp))
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
+        output.set_modals(modals.get_all(self.dlg.tw_modals))
         print(output.__dict__)
         #output.save()
         #self.dlg.close()
@@ -232,6 +233,8 @@ class Carto54:
             # Listening clicks on buttons
             self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
             self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
+            self.dlg.btn_add_modal.clicked.connect(lambda: modals.add_row(self.dlg.tw_modals))
+            self.dlg.btn_delete_modal.clicked.connect(lambda: modals.remove_rows(self.dlg.tw_modals))
             self.dlg.btn_cancel.clicked.connect(self.dlg.close)
             self.dlg.btn_generate.clicked.connect(lambda: self.generate_output(output))
 
