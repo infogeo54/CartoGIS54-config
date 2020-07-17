@@ -189,7 +189,8 @@ class Carto54:
 
     def open_explorer(self, output):
         destination = QFileDialog.getExistingDirectory(self.dlg, "Choose destination", output.directory)
-        self.dlg.ipt_dest.setText(destination)
+        if destination:
+            self.dlg.ipt_dest.setText(destination)
 
     def fill_display_table(self, output):
         form.fill_table(self.dlg.tw_display, output.fields())
