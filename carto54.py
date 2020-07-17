@@ -23,7 +23,7 @@
 """
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtWidgets import QAction, QFileDialog
 from qgis.core import QgsProject
 
 # Initialize Qt resources from file resources.py
@@ -187,6 +187,11 @@ class Carto54:
     def host(self):
         return self.dlg.ipt_host.text()
 
+    def open_explorer(self, output):
+        destination = QFileDialog.getExistingDirectory(self.dlg, "Choose destination", output.directory)
+        if destination:
+            self.dlg.ipt_dest.setText(destination)
+
     def fill_display_table(self, output):
         form.fill_table(self.dlg.tw_display, output.fields())
 
@@ -194,6 +199,7 @@ class Carto54:
         """
         Save the output
         """
+        output.set_directory(self.dlg.ipt_dest.text())
         output.set_host(self.dlg.ipt_host.text())
         output.set_query_params(server.query_params(self.dlg.tw_qp))
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
@@ -231,6 +237,7 @@ class Carto54:
             self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
 
             # Listening clicks on buttons
+            self.dlg.btn_dest.clicked.connect(lambda: self.open_explorer(output))
             self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
             self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
             self.dlg.btn_add_modal.clicked.connect(lambda: modals.add_row(self.dlg.tw_modals))
