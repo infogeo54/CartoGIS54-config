@@ -11,8 +11,12 @@ class Output:
         self.directory = directory
         self.entrypoint = "app.config.json"
         self.server = dict(
-            host="", 
+            host="",
             queryParams=[]
+        )
+        self.header = dict(
+            brand="",
+            modals=[]
         )
         self.form = dict(
             inputText=[],
@@ -22,8 +26,7 @@ class Output:
             textArea=[],
             selectBox=[]
         )
-        self.modals = []
-        
+
 
     def set_directory(self, directory):
         if not os.path.isdir(directory):
@@ -54,7 +57,7 @@ class Output:
 
     def add_selectBox(self, config):
         self.form["selectBox"].append(config)
-    
+
     def add_config(self, config):
         """
         Add a field's config to the appropriate section, depending on it's type
@@ -89,8 +92,11 @@ class Output:
             matching_field = self.field(field["field_name"])
             matching_field["options"].update(dict(disabled=field["disabled"], hidden=field["hidden"]))
 
+    def set_brand(self, brand):
+        self.header["brand"] = brand
+    
     def set_modals(self, modals):
-        self.modals = modals
+        self.header["modals"] = modals
 
     def path(self):
         return "{}/{}".format(self.directory, self.entrypoint)
@@ -110,8 +116,8 @@ class Output:
     def structure(self):
         return dict(
             server=self.server,
-            form=self.form,
-            modals=self.modals
+            header=self.header,
+            form=self.form
         )
 
     def save(self):
