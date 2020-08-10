@@ -3,17 +3,17 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Carto54
+name=CartoGIS54
 qgisMinimumVersion=3.0
-description=This plugins is used to offer more customization to the Carto54 Web app
+description=This plugin is used to offer more customization to the CartoGIS54 Web app
 version=0.1
 author=Conseil Départemental de Meurthe-et-Moselle
 email=hvitoux@departement54.fr
 
-about=This plugin is used to offer more customization to the Carto54 Web app. It will allow to create form fields dropdowns, choose color schemes, etc.
+about=It allows you to indicate the geodata server host, customize the form or create modals.
 
-tracker=https://github.com/infogeo54/carto54-config.git
-repository=https://github.com/infogeo54/carto54-config.git
+tracker=https://github.com/infogeo54/CartoGIS54-config.git
+repository=https://github.com/infogeo54/CartoGIS54-config.git
 # End of mandatory metadata
 
 # Recommended items:
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python
 
-homepage=https://github.com/infogeo54/carto54-config.git
+homepage=https://github.com/infogeo54/CartoGIS54-config.git
 category=Plugins
 icon=icon.png
 # experimental flag

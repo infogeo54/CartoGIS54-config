@@ -1,7 +1,7 @@
 #/***************************************************************************
-# Carto54
+# CartoGIS54
 #
-# This plugins is used to add more customization to the Carto54 Web app
+# This plugins is used to add more customization to the CartoGIS54 Web app
 #							 -------------------
 #		begin				: 2020-06-30
 #		git sha				: $Format:%H$
@@ -38,15 +38,15 @@ LOCALES =
 # translation
 SOURCES = \
 	__init__.py \
-	carto54.py carto54_dialog.py
+	cartogis54.py cartogis54_dialog.py
 
-PLUGINNAME = carto54
+PLUGINNAME = cartogis54
 
 PY_FILES = \
 	__init__.py \
-	carto54.py carto54_dialog.py
+	cartogis54.py cartogis54_dialog.py
 
-UI_FILES = carto54_dialog_base.ui
+UI_FILES = cartogis54_dialog_base.ui
 
 EXTRAS = metadata.txt icon.png
 

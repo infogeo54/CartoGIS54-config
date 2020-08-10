@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Carto54DialogBase</class>
- <widget class="QDialog" name="Carto54DialogBase">
+ <class>CartoGIS54DialogBase</class>
+ <widget class="QDialog" name="CartoGIS54DialogBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Carto54 - Configuration tool</string>
+   <string>CartoGIS54 - Configuration tool</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
