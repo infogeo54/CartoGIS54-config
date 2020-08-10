@@ -187,10 +187,15 @@ class CartoGIS54:
     def host(self):
         return self.dlg.ipt_host.text()
 
-    def open_explorer(self, output):
+    def open_destination_explorer(self, output):
         destination = QFileDialog.getExistingDirectory(self.dlg, "Choose destination", output.directory)
         if destination:
             self.dlg.ipt_dest.setText(destination)
+
+    def open_brand_explorer(self, output):
+        brand = QFileDialog.getOpenFileName(self.dlg, "Choose an image", output.directory, "Images (*.png *.jpg)")[0]
+        if brand:
+            self.dlg.ipt_brand.setText(brand)
 
     def fill_display_table(self, output):
         form.fill_table(self.dlg.tw_display, output.fields())
@@ -201,9 +206,10 @@ class CartoGIS54:
         """
         output.set_directory(self.dlg.ipt_dest.text())
         output.set_host(self.dlg.ipt_host.text())
+        output.set_brand(self.dlg.ipt_brand.text())
+        output.set_modals(modals.get_all(self.dlg.tw_modals))
         output.set_query_params(server.query_params(self.dlg.tw_qp))
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
-        output.set_modals(modals.get_all(self.dlg.tw_modals))
         print(output.__dict__)
         output.save()
         self.dlg.close()
@@ -240,6 +246,7 @@ class CartoGIS54:
             self.dlg.btn_dest.clicked.connect(lambda: self.open_explorer(output))
             self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
             self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
+            self.dlg.btn_brand.clicked.connect(lambda: self.open_brand_explorer(output))
             self.dlg.btn_add_modal.clicked.connect(lambda: modals.add_row(self.dlg.tw_modals))
             self.dlg.btn_delete_modal.clicked.connect(lambda: modals.remove_rows(self.dlg.tw_modals))
             self.dlg.btn_cancel.clicked.connect(self.dlg.close)
