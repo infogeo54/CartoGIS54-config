@@ -1,10 +1,10 @@
-# Carto54-config
+# CartoGIS54-config
 
-A QGIS plugin to offer more customization to the Carto54 Web app. 
+A QGIS plugin to offer more customization to the [CartoGIS54](https://github.com/infogeo54/CartoGIS54.git) Web app. 
 
-It can be used to indicate your data provider URL/IP, specify hidden or disabled fields, configure modals and header buttons or customize the color scheme.
+It allows you to indicate the geodata server host, customize the form or create modals.
 
-Check the [config sample](https://github.com/infogeo54/carto54-config/blob/master/sample/app.config.json) to get an overview.
+Check the [config sample](https://github.com/infogeo54/CartoGIS54-config/blob/master/sample/app.config.json) to get an overview.
 
 ## Server
 
@@ -60,14 +60,10 @@ By adding an entry, you'll tell the Web app to create a modal and add a button i
 2. Fill every cells to configure the modal :
     * `name` : this will be used to create the modal's HTML file and create the link between the modal and the button to toggle it
     * `title` : this will be displayed inside the modal's header
-    * `icon` : the icon that will be associated to the modal trigger button inside the Web app header. Available icons are from FontAwesome can be found [here](https://fontawesome.com/icons?d=gallery) (check the [config sample](https://github.com/infogeo54/carto54-config/blob/master/sample/app.config.json) to know how to add an icon)
+    * `icon` : the icon that will be associated to the modal trigger button inside the Web app header. Available icons are from FontAwesome can be found [here](https://fontawesome.com/icons?d=gallery) (check the [config sample](https://github.com/infogeo54/CartoGIS54-config/blob/master/sample/app.config.json) to know how to add an icon)
     * `visible` : this indicates to the Web app if this modal has to be visible by default. You won't often have to modify this option
     
 ### Removing an entry
 
 1. Click on the line number or any cell of the entry that you want to remove (you can select multiple elements by holding `Ctrl` while clicking)
 2. Click *Delete row* to remove selected entry
-
-## Color scheme
-
-*Comming soon*
