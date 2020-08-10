@@ -206,9 +206,10 @@ class CartoGIS54:
         """
         output.set_directory(self.dlg.ipt_dest.text())
         output.set_host(self.dlg.ipt_host.text())
+        output.set_brand(self.dlg.ipt_brand.text())
+        output.set_modals(modals.get_all(self.dlg.tw_modals))
         output.set_query_params(server.query_params(self.dlg.tw_qp))
         output.set_fields_display(form.fields_display(self.dlg.tw_display))
-        output.set_modals(modals.get_all(self.dlg.tw_modals))
         print(output.__dict__)
         output.save()
         self.dlg.close()
