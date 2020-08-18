@@ -243,7 +243,7 @@ class CartoGIS54:
             self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
 
             # Listening clicks on buttons
-            self.dlg.btn_dest.clicked.connect(lambda: self.open_explorer(output))
+            self.dlg.btn_dest.clicked.connect(lambda: self.open_destination_explorer(output))
             self.dlg.btn_add_qp.clicked.connect(lambda: server.add_row(self.dlg.tw_qp))
             self.dlg.btn_delete_qp.clicked.connect(lambda: server.remove_rows(self.dlg.tw_qp))
             self.dlg.btn_brand.clicked.connect(lambda: self.open_brand_explorer(output))
