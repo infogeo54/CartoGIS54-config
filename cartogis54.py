@@ -24,7 +24,7 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QFileDialog
-from qgis.core import QgsProject
+from qgis.core import QgsProject, QgsMapLayerType
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -193,7 +193,7 @@ class CartoGIS54:
             self.dlg.ipt_dest.setText(destination)
 
     def open_brand_explorer(self, output):
-        brand = QFileDialog.getOpenFileName(self.dlg, "Choose an image", output.directory, "Images (*.png *.jpg)")[0]
+        brand = QFileDialog.getOpenFileName(self.dlg, "Choose an image", output.directory, "Images (*.png *.jpg *.svg *.gif)")[0]
         if brand:
             self.dlg.ipt_brand.setText(brand)
 
@@ -222,7 +222,7 @@ class CartoGIS54:
 
         # Default values
         default_directory = QgsProject.instance().absolutePath()
-        layers = QgsProject.instance().mapLayers().values()
+        layers = [l for l in QgsProject.instance().mapLayers().values() if l.type() == QgsMapLayerType.VectorLayer]
 
         # Creating Output instance
         output = Output(default_directory)
@@ -232,15 +232,9 @@ class CartoGIS54:
             self.first_start = False
             self.dlg = CartoGIS54Dialog()
 
-            # Setting default values
-            self.dlg.ipt_dest.setText(default_directory)
-
             # Config display table
             self.dlg.tw_display.setRowCount(len(output.fields()))
             self.fill_display_table(output)
-
-            # Listening input changes
-            self.dlg.ipt_dest.editingFinished.connect(lambda: output.set_directory(self.destination()))
 
             # Listening clicks on buttons
             self.dlg.btn_dest.clicked.connect(lambda: self.open_destination_explorer(output))
