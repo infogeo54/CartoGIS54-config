@@ -1,0 +1,358 @@
+{
+    "server": {
+        "host": "",
+        "queryParams": []
+    },
+    "header": {
+        "brand": "",
+        "modals": []
+    },
+    "form": {
+        "inputText": [
+            {
+                "name": "wikipedia",
+                "alias": "wiki1",
+                "type": "TextEdit",
+                "layer": "limad_communes",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "surf_ha",
+                "alias": "surf1",
+                "type": "TextEdit",
+                "layer": "limad_communes",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "insee",
+                "alias": "insee2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "nom",
+                "alias": "nom2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "wikipedia",
+                "alias": "wiki2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "surf_ha",
+                "alias": "surf2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "orig_ogc_f",
+                "alias": "orig2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "textArea": [
+            {
+                "name": "observations",
+                "type": "TextEdit",
+                "layer": "parking",
+                "options": {
+                    "IsMultiline": true,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "inputDate": [],
+        "inputRangeSpinBox": [
+            {
+                "name": "nb_place",
+                "type": "Range",
+                "layer": "parking",
+                "options": {
+                    "AllowNull": true,
+                    "Max": 2147483647,
+                    "Min": -2147483648,
+                    "Precision": 0,
+                    "Step": 1,
+                    "Style": "SpinBox",
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "inputRangeSlider": [],
+        "selectBox": [
+            {
+                "name": "type",
+                "type": "ValueMap",
+                "layer": "parking",
+                "options": {
+                    "map": [
+                        {
+                            "text": "Gratuit",
+                            "value": "Gratuit"
+                        },
+                        {
+                            "text": "Payant",
+                            "value": "Payant"
+                        }
+                    ],
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "contr_acce",
+                "type": "ValueMap",
+                "layer": "parking",
+                "options": {
+                    "map": [
+                        {
+                            "text": "Aucun",
+                            "value": "Aucun"
+                        },
+                        {
+                            "text": "Badge",
+                            "value": "Badge"
+                        },
+                        {
+                            "text": "Digicode",
+                            "value": "Digicode"
+                        }
+                    ],
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "covoiturage",
+                "type": "ValueMap",
+                "layer": "parking",
+                "options": {
+                    "map": [
+                        {
+                            "text": "Oui",
+                            "value": "true"
+                        },
+                        {
+                            "text": "Non",
+                            "value": "false"
+                        }
+                    ],
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                },
+                "default": "true"
+            }
+        ],
+        "checkBox": [
+            {
+                "name": "projet",
+                "type": "CheckBox",
+                "layer": "parking",
+                "options": {
+                    "CheckedState": "",
+                    "TextDisplayMethod": 0,
+                    "UncheckedState": "",
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "notEnterable": [
+            {
+                "name": "id",
+                "alias": "id1",
+                "type": "TextEdit",
+                "layer": "limad_communes",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": true
+                }
+            },
+            {
+                "name": "id",
+                "alias": "id2",
+                "type": "TextEdit",
+                "layer": "limad_communes_grandest",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": true
+                }
+            },
+            {
+                "name": "id_0",
+                "type": "TextEdit",
+                "layer": "parking",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": true
+                }
+            },
+            {
+                "name": "id",
+                "type": "TextEdit",
+                "layer": "parking",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "area",
+                "type": "Range",
+                "layer": "parking",
+                "options": {
+                    "AllowNull": true,
+                    "Max": 1.7976931348623157e+308,
+                    "Min": -1.7976931348623157e+308,
+                    "Precision": 0,
+                    "Step": 1.0,
+                    "Style": "Slider",
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            },
+            {
+                "name": "type_autre",
+                "layer": "parking"
+            },
+            {
+                "name": "perimeter",
+                "layer": "parking"
+            }
+        ],
+        "thumbnail": [
+            {
+                "name": "photo",
+                "type": "TextEdit",
+                "layer": "parking",
+                "options": {
+                    "IsMultiline": false,
+                    "UseHtml": false,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "fileInput": [
+            {
+                "name": "p_jointe",
+                "type": "ExternalResource",
+                "layer": "parking",
+                "options": {
+                    "DocumentViewer": 0,
+                    "DocumentViewerHeight": 0,
+                    "DocumentViewerWidth": 0,
+                    "FileWidget": true,
+                    "FileWidgetButton": true,
+                    "FileWidgetFilter": "",
+                    "PropertyCollection": {
+                        "name": "",
+                        "properties": null,
+                        "type": "collection"
+                    },
+                    "RelativeStorage": 0,
+                    "StorageMode": 0,
+                    "disabled": false,
+                    "hidden": false,
+                    "required": false
+                }
+            }
+        ],
+        "hidden": [
+            {
+                "name": "type_autre",
+                "layer": "parking"
+            },
+            {
+                "name": "perimeter",
+                "layer": "parking"
+            },
+            {
+                "name": "insee",
+                "layer": "limad_communes"
+            },
+            {
+                "name": "nom",
+                "layer": "limad_communes"
+            },
+            {
+                "name": "porteur_pr",
+                "layer": "parking"
+            }
+        ]
+    }
+}
