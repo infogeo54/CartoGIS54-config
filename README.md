@@ -67,3 +67,9 @@ By adding an entry, you'll tell the Web app to create a modal and add a button i
 
 1. Click on the line number or any cell of the entry that you want to remove (you can select multiple elements by holding `Ctrl` while clicking)
 2. Click *Delete row* to remove selected entry
+
+### Warning
+
+1. Be sure that all the layers have undergone a modification, whatever it is, otherwise the plugin will not launch. The concerned layers will be marked by a warning message in QGIS.
+
+2. You might encounter error messages due to the styling of certain attributes. Please correct it by applying a modification on the concerned attribute. Again, it will be displayed in QGIS.
